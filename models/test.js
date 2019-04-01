@@ -1,0 +1,2 @@
+var mongoose = requie('mongoose');
+
