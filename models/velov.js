@@ -10,8 +10,8 @@ var velovSchema = new mongoose.Schema({
             address2: String,
             commune: String
         }
-        ]
+    ]
 });
-
-var velov = mongoose.model('infos', velovSchema);
+var collectionName = 'velov';
+var velov = mongoose.model('velov', velovSchema, collectionName);
 module.exports = velov;
