@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {% for MongoOBJ in velov %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                    {% for PropDetail in MongoOBJ.properties %}
+                    <hr>
+                        <ul>
+                            <li>
+                                {{ PropDetail.name }}
+                            </li>
+                            <li>
+                                {{ PropDetail.address }}
+                            </li>
+                        </ul>
+                    {% endfor %}
+
+            </div>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
+
+<h2>Les velovs</h2>
+

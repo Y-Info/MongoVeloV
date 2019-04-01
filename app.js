@@ -2,16 +2,16 @@ var express = require('express');
 var mongoose = require('mongoose');
 var nunjucks = require('nunjucks');
 
-mongoose.connect('mongodb://localhost/velovs', { useNewUrlParser: true } );
+mongoose.connect('mongodb://127.0.0.1:27017/test', { useNewUrlParser: true } );
 
-require('./models/velovs');
+require('./models/velov');
 
 var app = express();
 
 
 app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
 
-app.use('/', require('./routes/velovs'));
+app.use('/', require('./routes/velov'));
 
 nunjucks.configure('views', {
     autoescape: true,
