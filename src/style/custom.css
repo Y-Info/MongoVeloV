@@ -20,7 +20,7 @@ hr{
 .custom_legend{
     width: 323px;
     position: absolute;
-    bottom: 115px;
+    bottom: 95px;
     right: 15px;
     z-index: 1000;
     opacity: 0.8;
