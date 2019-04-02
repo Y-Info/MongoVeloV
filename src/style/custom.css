@@ -1,3 +1,38 @@
 #map{
-    height:100vh;
+    height:85vh;
 }
+hr{
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #EEEEEE;
+    border-style: solid none;
+    border-width: 1px 0;
+    margin: 18px 0;
+}
+.custom_card{
+    width: 31%;
+    margin: 1%;
+}
+
+.custom_legend{
+    width: 323px;
+    position: absolute;
+    bottom: 115px;
+    right: 15px;
+    z-index: 1000;
+    opacity: 0.8;
+}
+.custom_legend>li>img{
+    height: 45px;
+    padding-right: 10px;
+}
+
+.custom_h2{
+    margin: 0;
+    padding: 30px 30px 10px 0;
+    border-bottom: 1px solid grey;
+}
+

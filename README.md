@@ -23,7 +23,7 @@ node app:js
 
 
 ```
-npm install --save express mongoose nunjucks bootstrap
+npm install --save express mongoose nunjucks bootstrap shelljs
 ```
 
 ## Authors
