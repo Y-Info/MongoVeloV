@@ -10,8 +10,9 @@ var app = express();
 
 
 app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
-
 app.use('/customcss', express.static( __dirname + '/src/style'));
+app.use('/script', express.static( __dirname + '/src/scripts'));
+
 
 app.use('/', require('./routes/velov'));
 

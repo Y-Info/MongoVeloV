@@ -17,7 +17,7 @@ var velovSchema = new mongoose.Schema({
             bike_stands: Number,
             status: String,
             available_bike_stands: Number,
-            available_bike: Number,
+            available_bikes: Number,
             availabilitycode: Number,
             availability: String,
             banking: Number,
