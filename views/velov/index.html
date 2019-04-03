@@ -8,31 +8,32 @@
 
 {% for MongoOBJ in velov %}
 
-        var Tempvelov =  new Object();
+        var TempVelov =  new Object();
 
         var coord = '{{ MongoOBJ.geometry.coordinates }}';
+        TempVelov.coord = '{{ MongoOBJ.geometry.coordinates }}';
         var splitcoord = coord.split(',');
 
-        Tempvelov.latitude = splitcoord[1];
-        Tempvelov.longitude = splitcoord[0];
+        TempVelov.latitude = splitcoord[1];
+        TempVelov.longitude = splitcoord[0];
 
     {% for MarkerDetail in MongoOBJ.properties %}
 
-            Tempvelov.address = '{{ MarkerDetail.address }}';
+            TempVelov.address = '{{ MarkerDetail.address }}';
 
-            Tempvelov.name = '{{ MarkerDetail.name }}';
+            TempVelov.name = '{{ MarkerDetail.name }}';
 
-            Tempvelov.commune = '{{ MarkerDetail.commune }}';
+            TempVelov.commune = '{{ MarkerDetail.commune }}';
 
-            Tempvelov.available_bikes = '{{ MarkerDetail.available_bikes }}';
+            TempVelov.available_bikes = '{{ MarkerDetail.available_bikes }}';
 
-            Tempvelov.availability = '{{ MarkerDetail.availability }}';
+            TempVelov.availability = '{{ MarkerDetail.availability }}';
 
 
-            Tempvelov.last_update = '{{ MarkerDetail.last_update }}';
+            TempVelov.last_update = '{{ MarkerDetail.last_update }}';
 
     {% endfor %}
-    velovs.push(Tempvelov);
+    velovs.push(TempVelov);
 {% endfor %}
 </script>
 
@@ -78,6 +79,8 @@
 
     var macarte = null;
 
+
+    // Custom marker
     var vertIcon = new L.Icon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -122,11 +125,6 @@
         shadowSize: [20, 20]
     });
 
-
-
-
-
-
     // Fonction d'initialisation de la carte
     function initMap() {
         // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
@@ -138,31 +136,35 @@
             maxZoom: 20
         }).addTo(macarte);
 
+        var markers = L.markerClusterGroup();
+
+
 
         for (var i = 0; i < velovs.length; i++) {
 
-
             switch (velovs[i].availability) {
                 case 'Vert':
-                    var marker = L.marker([velovs[i].latitude, velovs[i].longitude], {icon: vertIcon}).addTo(macarte);
+                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: vertIcon}, { title: velovs[i].name });
                     break;
                 case 'Gris':
-                    var marker = L.marker([velovs[i].latitude, velovs[i].longitude], {icon: grisIcon}).addTo(macarte);
+                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: grisIcon}, { title: velovs[i].name });
                     break;
                 case 'Orange':
-                    var marker = L.marker([velovs[i].latitude, velovs[i].longitude], {icon: orangeIcon}).addTo(macarte);
+                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: orangeIcon}, { title: velovs[i].name });
                     break;
                 case 'Bleu':
-                    var marker = L.marker([velovs[i].latitude, velovs[i].longitude], {icon: bleuIcon}).addTo(macarte);
+                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: bleuIcon}, { title: velovs[i].name });
                     break;
                 default:
-                    var marker = L.marker([velovs[i].latitude, velovs[i].longitude], {icon: rougeIcon }).addTo(macarte);
+                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: rougeIcon}, { title: velovs[i].name });
             }
 
-
-            var mystring = "<b>" + velovs[i].name + "</b><br/>" + "Commune : " + velovs[i].commune  +"<br/>" + "Adress : " + velovs[i].address  +"<br/>" + "Nb velo dispo. : " + velovs[i].available_bikes  +"<br/>" ;
-            marker.bindPopup(mystring);
+            markers.addLayer(marker);
         }
+
+
+        console.log(markers);
+        macarte.addLayer(markers);
 
     }
     window.onload = function(){

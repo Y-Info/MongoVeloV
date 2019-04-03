@@ -10,6 +10,9 @@ var app = express();
 
 
 app.use('/css', express.static( __dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/test', express.static( __dirname + '/node_modules/leaflet.markercluster/dist'));
+
+
 app.use('/customcss', express.static( __dirname + '/src/style'));
 app.use('/script', express.static( __dirname + '/src/scripts'));
 

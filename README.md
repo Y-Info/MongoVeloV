@@ -23,7 +23,8 @@ node app:js
 
 
 ```
-npm install --save express mongoose nunjucks bootstrap shelljs
+npm install --save express mongoose nunjucks bootstrap shelljs leaflet.markercluster
+
 ```
 
 ## Authors
