@@ -142,22 +142,28 @@
 
         for (var i = 0; i < velovs.length; i++) {
 
+            var PopupContent = "Test";
+            var marker;
+
             switch (velovs[i].availability) {
                 case 'Vert':
-                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: vertIcon}, { title: velovs[i].name });
+                    marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: vertIcon}, { title: velovs[i].name });
                     break;
                 case 'Gris':
-                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: grisIcon}, { title: velovs[i].name });
+                    marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: grisIcon}, { title: velovs[i].name });
                     break;
                 case 'Orange':
-                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: orangeIcon}, { title: velovs[i].name });
+                    marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: orangeIcon}, { title: velovs[i].name });
                     break;
                 case 'Bleu':
-                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: bleuIcon}, { title: velovs[i].name });
+                    marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: bleuIcon}, { title: velovs[i].name });
                     break;
                 default:
-                    var marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: rougeIcon}, { title: velovs[i].name });
+                    marker = L.marker(new L.LatLng(velovs[i].latitude, velovs[i].longitude), {icon: rougeIcon}, { title: velovs[i].name });
             }
+
+            var mystring = "<b>" + velovs[i].name + "</b><br/>" + "Commune : " + velovs[i].commune  +"<br/>" + "Adress : " + velovs[i].address  +"<br/>" + "Nb velo dispo. : " + velovs[i].available_bikes  +"<br/>" ;
+            marker.bindPopup(mystring);
 
             markers.addLayer(marker);
         }
