@@ -13,6 +13,19 @@
     <link  rel="stylesheet" href="test/MarkerCluster.css">
     <link  rel="stylesheet" href="test/MarkerCluster.Default.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+
+    <script>
+        var crd;
+
+        function success(pos) {
+            crd = pos.coords;
+        }
+
+        navigator.geolocation.getCurrentPosition(success);
+        console.log(crd);
+    </script>
 </head>
 <body class="container-fluid">
 {% block content %}

@@ -35,8 +35,26 @@
     {% endfor %}
     velovs.push(TempVelov);
 {% endfor %}
-</script>
 
+
+</script>
+<style>
+    .gps_ring {
+        border: 3px solid red;
+        -webkit-border-radius: 30px;
+        height: 18px;
+        width: 18px;
+        -webkit-animation: pulsate 1s ease-out;
+        -webkit-animation-iteration-count: infinite;
+    }
+
+    @-webkit-keyframes pulsate {
+        0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+        50% {opacity: 1.0;}
+        100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+    }
+
+</style>
 
 <h2>Carte interactive</h2>
 
@@ -73,11 +91,31 @@
 
 
 <script type="text/javascript">
+    // Backup
+    var crd_latitude = 45.7542305;
+    var crd_longitude= 4.8386187 ;
+    var lat;
+    var lon;
+
+
+
     // On initialise la latitude et la longitude(centre de la carte)
-    var lat = 45.761432;
-    var lon = 4.856454;
+    if (crd === undefined){
+        lat = crd_latitude;
+        lon = crd_longitude;
+    }else {
+        lat = crd.latitude;
+        lon = crd.longitude;
+    }
+
 
     var macarte = null;
+
+    var cssIcon = L.divIcon({
+        className: 'css-icon',
+        html: '<div class="gps_ring"></div>'
+        ,iconSize: [22,22]
+    });
 
 
     // Custom marker
@@ -136,13 +174,21 @@
             maxZoom: 20
         }).addTo(macarte);
 
+        var marker_current_pos;
+
+        if (crd === undefined){
+            var marker_current_pos = L.marker(new L.LatLng(crd_latitude, crd_longitude), {icon: cssIcon}, { title: 'MyCurrentPosition' });
+        }else {
+            marker_current_pos = L.marker(new L.LatLng(crd.latitude, crd.longitude), {icon: cssIcon}, { title: 'MyCurrentPosition' });
+        }
+
+        marker_current_pos.addTo(macarte);
+        marker_current_pos.bindPopup('<h2><b> Vous êtes ici ! </b></h2>');
+
+
         var markers = L.markerClusterGroup();
-
-
-
         for (var i = 0; i < velovs.length; i++) {
 
-            var PopupContent = "Test";
             var marker;
 
             switch (velovs[i].availability) {
@@ -167,9 +213,6 @@
 
             markers.addLayer(marker);
         }
-
-
-        console.log(markers);
         macarte.addLayer(markers);
 
     }
