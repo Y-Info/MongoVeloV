@@ -30,6 +30,12 @@ router.get('/pipi', (req, res) => {
     });
 });
 
+router.get('/proche', (req, res) => {
+    toilettes_pub.find({}).then(toilettes_pub => {
+        res.render('toilette_pub/index.html', {toilettes_pub: toilettes_pub })
+    });
+});
+
 
 module.exports = router;
 

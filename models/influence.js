@@ -20,6 +20,7 @@ var influSchema = new mongoose.Schema({
         }
     }
 });
+
 var collectionName = 'influence';
 var influ = mongoose.model('influence', influSchema, collectionName);
 module.exports = influ;

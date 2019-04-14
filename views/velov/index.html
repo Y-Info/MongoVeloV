@@ -142,6 +142,12 @@
         shadowSize: [20, 20]
     });
 
+    var noneIcon = L.divIcon({
+        className: 'none-marker',
+        html: '<div class="none-marker"></div>'
+        ,iconSize: [0,0]
+    });
+
     // Fonction d'initialisation de la carte
     function initMap() {
         // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
@@ -153,11 +159,16 @@
             maxZoom: 20
         }).addTo(macarte);
 
+
+
+
+
         var marker_current_pos;
 
         if (crd === undefined){
             var marker_current_pos = L.marker(new L.LatLng(crd_latitude, crd_longitude), {icon: cssIcon}, { title: 'MyCurrentPosition' });
         }else {
+
             marker_current_pos = L.marker(new L.LatLng(crd.latitude, crd.longitude), {icon: cssIcon}, { title: 'MyCurrentPosition' });
         }
 
@@ -167,6 +178,7 @@
 
         var markers = L.markerClusterGroup();
         for (var i = 0; i < velovs.length; i++) {
+
 
             var marker;
 

@@ -91,6 +91,20 @@
             maxZoom: 20
         }).addTo(macarte);
 
+        var markersLayer = new L.LayerGroup();	//layer contain searched elements
+
+        macarte.addLayer(markersLayer);
+
+        var controlSearch = new L.Control.Search({
+            position:'topright',
+            layer: markersLayer,
+            initial: false,
+            zoom: 18,
+            marker: false
+        });
+
+        macarte.addControl( controlSearch );
+
         var marker_current_pos;
 
         if (crd === undefined){
@@ -103,16 +117,19 @@
         marker_current_pos.bindPopup('<h2><b> Vous êtes ici ! </b></h2>');
 
 
+
+
         var markers = L.markerClusterGroup();
         for (var i = 0; i < influ.length; i++) {
 
-            var marker;
-            marker = L.marker(new L.LatLng(influ[i].latitude, influ[i].longitude), { title: influ[i].name });
+            var title = influ[i].name,	//value searched
+                marker = new L.Marker(new L.latLng(influ[i].latitude, influ[i].longitude), {title: title} );//se property searched
 
             var mystring = "<b>" + influ[i].name + "</b><br/>" + "Type deplacement : " + influ[i].typedeplacement +"<br/>" ;
             marker.bindPopup(mystring);
-
+            markersLayer.addLayer(marker);
             markers.addLayer(marker);
+
         }
         macarte.addLayer(markers);
 

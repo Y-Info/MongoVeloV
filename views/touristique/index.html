@@ -97,6 +97,21 @@
             maxZoom: 20
         }).addTo(macarte);
 
+
+        var markersLayer = new L.LayerGroup();	//layer contain searched elements
+
+        macarte.addLayer(markersLayer);
+
+        var controlSearch = new L.Control.Search({
+            position:'topright',
+            layer: markersLayer,
+            initial: false,
+            zoom: 18,
+            marker: false
+        });
+
+        macarte.addControl( controlSearch );
+
         var marker_current_pos;
 
         if (crd === undefined){
@@ -112,13 +127,14 @@
         var markers = L.markerClusterGroup();
         for (var i = 0; i < l_touristique.length; i++) {
 
-            var marker;
-            marker = L.marker(new L.LatLng(l_touristique[i].latitude, l_touristique[i].longitude), { title: l_touristique[i].id });
+            var title = l_touristique[i].nom,	//value searched
+                marker = new L.Marker(new L.latLng(l_touristique[i].latitude, l_touristique[i].longitude), {title: title} );//se property searched
 
             var mystring = "<b>" + l_touristique[i].nom + "</b><br/>" + "adresse : " + l_touristique[i].adresse +"<br/>" ;
             marker.bindPopup(mystring);
-
+            markersLayer.addLayer(marker);
             markers.addLayer(marker);
+
         }
         macarte.addLayer(markers);
 
