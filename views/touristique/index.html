@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script>
+    var l_touristique =[];
+
+
+
+    {% for MongoOBJ in touristique %}
+
+    var TempTourist =  new Object();
+
+    var coord = '{{ MongoOBJ.geometry.coordinates }}';
+    TempTourist.coord = '{{ MongoOBJ.geometry.coordinates }}';
+    var splitcoord = coord.split(',');
+
+    TempTourist.latitude = splitcoord[1];
+    TempTourist.longitude = splitcoord[0];
+
+    {% for MarkerDetail in MongoOBJ.properties %}
+
+    TempTourist.id = '{{ MarkerDetail.id }}';
+    TempTourist.nom = '{{ MarkerDetail.nom }}';
+    TempTourist.adresse = '{{ MarkerDetail.adresse }}';
+    TempTourist.type_detail = '{{ MarkerDetail.type_detail }}';
+    TempTourist.email = '{{ MarkerDetail.email }}';
+
+    {% endfor %}
+
+    l_touristique.push(TempTourist);
+    {% endfor %}
+
+
+</script>
+<div id="map">
+    <!-- Ici s'affichera la carte -->
+</div>
+
+
+<div class="container">
+    <div class=" row">
+        <h2 class="col-md-12 custom_h2"> Liste des lieux touristiques</h2>
+        <hr>
+        {% for MongoOBJ in touristique %}
+        {% for MarkerDetail in MongoOBJ.properties %}
+        <div class="card custom_card">
+            <div class="card-body">
+                <h5 class="card-title">{{ MarkerDetail.nom }}</h5>
+                <p class="card-text"><b>Type : </b>{{ MarkerDetail.type_detail }} <br/></p>
+                <p class="card-text"><b>Adresse :</b> {{ MarkerDetail.adresse }} <br/></p>
+                <p class="card-text"><b>Ouverture : </b>{{ MarkerDetail.ouverture }} <br/></p>
+                <p class="card-text"><b>Site internet :</b><a href="{{ MarkerDetail.siteweb }}">{{ MarkerDetail.siteweb }}</a><br/></p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    // Backup
+    var crd_latitude = 45.7542305;
+    var crd_longitude= 4.8386187 ;
+    var lat;
+    var lon;
+
+
+
+    // On initialise la latitude et la longitude(centre de la carte)
+    if (crd === undefined){
+        lat = crd_latitude;
+        lon = crd_longitude;
+    }else {
+        lat = crd.latitude;
+        lon = crd.longitude;
+    }
+
+
+    var macarte = null;
+
+    var cssIcon = L.divIcon({
+        className: 'css-icon',
+        html: '<div class="gps_ring"></div>'
+        ,iconSize: [22,22]
+    });
+
+    // Fonction d'initialisation de la carte
+    function initMap() {
+        // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+        macarte = L.map('map').setView([lat, lon], 14);
+        // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+            // Il est toujours bien de laisser le lien vers la source des données
+            minZoom: 1,
+            maxZoom: 20
+        }).addTo(macarte);
+
+        var marker_current_pos;
+
+        if (crd === undefined){
+            var marker_current_pos = L.marker(new L.LatLng(crd_latitude, crd_longitude), {icon: cssIcon}, { title: 'MyCurrentPosition' });
+        }else {
+            marker_current_pos = L.marker(new L.LatLng(crd.latitude, crd.longitude), {icon: cssIcon}, { title: 'MyCurrentPosition' });
+        }
+
+        marker_current_pos.addTo(macarte);
+        marker_current_pos.bindPopup('<h2><b> Vous êtes ici ! </b></h2>');
+
+
+        var markers = L.markerClusterGroup();
+        for (var i = 0; i < l_touristique.length; i++) {
+
+            var marker;
+            marker = L.marker(new L.LatLng(l_touristique[i].latitude, l_touristique[i].longitude), { title: l_touristique[i].id });
+
+            var mystring = "<b>" + l_touristique[i].nom + "</b><br/>" + "adresse : " + l_touristique[i].adresse +"<br/>" ;
+            marker.bindPopup(mystring);
+
+            markers.addLayer(marker);
+        }
+        macarte.addLayer(markers);
+
+    }
+    window.onload = function(){
+        initMap();
+    };
+
+</script>
+
+
+
+
+{% endblock %}
+
+

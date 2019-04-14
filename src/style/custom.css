@@ -36,3 +36,48 @@ hr{
     border-bottom: 1px solid grey;
 }
 
+.gps_ring {
+    border: 3px solid red;
+    -webkit-border-radius: 30px;
+    height: 18px;
+    width: 18px;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
+}
+header ul{
+    text-align: right;
+}
+header li{
+    display: inline-block;
+    box-sizing: border-box;
+    width: auto;
+    color: black;
+    text-align: center;
+    background-color: white;
+    transition: 0.3s;
+}
+header a{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 200px;
+    text-decoration: none;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+    background-color: white;
+    color: grey;
+    transition: 0.3s;
+}
+header li a:hover{
+    color: white;
+    text-underline: none;
+    text-decoration: none;
+    transition: 0.3s;
+    background-color: grey;
+}

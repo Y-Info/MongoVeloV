@@ -17,7 +17,7 @@ app.use('/customcss', express.static( __dirname + '/src/style'));
 app.use('/script', express.static( __dirname + '/src/scripts'));
 
 
-app.use('/', require('./routes/velov'));
+app.use('/', require('./routes/routes'));
 
 nunjucks.configure('views', {
     autoescape: true,

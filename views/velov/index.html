@@ -38,26 +38,6 @@
 
 
 </script>
-<style>
-    .gps_ring {
-        border: 3px solid red;
-        -webkit-border-radius: 30px;
-        height: 18px;
-        width: 18px;
-        -webkit-animation: pulsate 1s ease-out;
-        -webkit-animation-iteration-count: infinite;
-    }
-
-    @-webkit-keyframes pulsate {
-        0% {-webkit-transform: scale(0.1, 0.1); opacity: 0.0;}
-        50% {opacity: 1.0;}
-        100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
-    }
-
-</style>
-
-<h2>Carte interactive</h2>
-
 <div id="map">
     <!-- Ici s'affichera la carte -->
 </div>
@@ -81,7 +61,6 @@
                     <h5 class="card-title">{{ MarkerDetail.name }}</h5>
                     <p class="card-text">Address : {{ MarkerDetail.address }} <br/>
                     Nombre de velo disponible : {{ MarkerDetail.available_bikes }} </p>
-                    <a href="#" class="btn btn-primary">Search</a>
                 </div>
             </div>
         {% endfor %}

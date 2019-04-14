@@ -15,7 +15,7 @@ node app:js
 
 ### UseFull link
 
-* [Spec](https://github.com/Zalbani/MongoVeloV/blob/master/src/specs/Fiche_Projet_-_MySQL-MongoDB.pdf) - Project specification
+* [Spec](https://github.com/Zalbani/MongoVeloV/blob/master/src/docs/specs/Fiche_Projet_-_MySQL-MongoDB.pdf) - Project specification
 * [Tutal](https://www.youtube.com/watch?v=_N5xsboU2Ms) - Tuto youtube
 
 
